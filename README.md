@@ -59,7 +59,7 @@ func main() {
 }
 ```
 
-## Pack a struct into a byte slice 
+### Pack a struct into a byte slice 
 
 ```go
 package main
