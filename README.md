@@ -46,7 +46,7 @@ type SystemEvent struct {
 }
 
 func main() {
-	data := []byte{83,0,0,0,0,0,162,215,245,12,16,83}
+    data := []byte{83,0,0,0,0,0,162,215,245,12,16,83}
     
     systemEvent := &SystemEvent{}
     err := unpacket.Unpack(data, binary.BigEndian, systemEvent)
