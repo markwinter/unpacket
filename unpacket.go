@@ -14,6 +14,12 @@ const (
 	structTag = "unpack"
 )
 
+var (
+	buf2 = make([]byte, 2)
+	buf4 = make([]byte, 4)
+	buf8 = make([]byte, 8)
+)
+
 func parseUnpackTag(tag string) (int, int, error) {
 	offset := -1
 	length := -1
@@ -131,31 +137,25 @@ func fieldToBytes(fieldValue reflect.Value, length int, order binary.ByteOrder) 
 	case reflect.Uint8:
 		return []byte{byte(fieldValue.Uint())}, nil
 	case reflect.Uint16:
-		buf := make([]byte, 2)
-		order.PutUint16(buf, uint16(fieldValue.Uint()))
-		return buf, nil
+		order.PutUint16(buf2, uint16(fieldValue.Uint()))
+		return buf2, nil
 	case reflect.Uint32:
-		buf := make([]byte, 4)
-		order.PutUint32(buf, uint32(fieldValue.Uint()))
-		return buf, nil
+		order.PutUint32(buf4, uint32(fieldValue.Uint()))
+		return buf4, nil
 	case reflect.Uint64:
-		buf := make([]byte, 8)
-		order.PutUint64(buf, fieldValue.Uint())
-		return buf, nil
+		order.PutUint64(buf8, fieldValue.Uint())
+		return buf8, nil
 	case reflect.Int8:
 		return []byte{byte(fieldValue.Int())}, nil
 	case reflect.Int16:
-		buf := make([]byte, 2)
-		order.PutUint16(buf, uint16(fieldValue.Int()))
-		return buf, nil
+		order.PutUint16(buf2, uint16(fieldValue.Int()))
+		return buf2, nil
 	case reflect.Int32:
-		buf := make([]byte, 4)
-		order.PutUint32(buf, uint32(fieldValue.Int()))
-		return buf, nil
+		order.PutUint32(buf4, uint32(fieldValue.Int()))
+		return buf4, nil
 	case reflect.Int64:
-		buf := make([]byte, 8)
-		order.PutUint64(buf, uint64(fieldValue.Int()))
-		return buf, nil
+		order.PutUint64(buf8, uint64(fieldValue.Int()))
+		return buf8, nil
 	case reflect.String:
 		str := fieldValue.String()
 		if len(str) > length {
